@@ -1,0 +1,21 @@
+PART 1-B - SIMULATION 2
+
+Iteration: 1
+Battleship position: (482.09, 69.88)
+Gun status: NORMAL
+Allowed angle range: 0.00 - 90.00 degrees
+
+Battleship status: DESTROYED
+Destroyed by Escort ID: 1
+
+ESCORT STATUS
+Escort 1 (ED): ALIVE
+Escort 2 (EA): ALIVE
+Escort 3 (ED): ALIVE
+Escort 4 (EC): ALIVE
+Escort 5 (EB): ALIVE
+Escort 6 (EC): ALIVE
+Escort 7 (EC): ALIVE
+Escort 8 (EA): ALIVE
+Escort 9 (EE): ALIVE
+Escort 10 (ED): ALIVE

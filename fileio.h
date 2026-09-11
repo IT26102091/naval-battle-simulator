@@ -45,6 +45,29 @@ void savePart1BStep(
     int sinkerID,
     int destroyedThisStep
 );
+void savePart1BSimulation2Step(
+    int step,
+    Battleship battleship,
+    EscortShip escorts[],
+    int numberOfEscorts,
+    int battleshipSunk,
+    int sinkerID,
+    int destroyedThisStep,
+    int gunJammed,
+    double minimumAngle
+);
+
+void savePart1BComparison(
+    int sim1Sunk,
+    int sim1Destroyed,
+    int sim1Steps,
+    int sim2Sunk,
+    int sim2Destroyed,
+    int sim2Steps,
+    int jamIteration,
+    double minimumAngle
+);
+
 
 
 #endif

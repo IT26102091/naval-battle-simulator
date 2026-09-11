@@ -1,0 +1,13 @@
+PART 1-B SIMULATION COMPARISON
+
+SIMULATION 1
+Battleship: DESTROYED
+Escorts destroyed: 0
+Iterations completed: 1
+
+SIMULATION 2
+Gun jams after iteration: 3
+Minimum angle after jam: 20.00 degrees
+Battleship: DESTROYED
+Escorts destroyed: 0
+Iterations completed: 1

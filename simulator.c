@@ -5,6 +5,9 @@
 #include <ctype.h>
 
 #include "simulator.h"
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 
 static double randomDouble(double min, double max)
@@ -545,4 +548,62 @@ void displayBattlePath(
             path[i][1]
         );
     }
+}
+double calculateBattleshipFiringAngle(
+    Battleship battleship,
+    EscortShip escort
+)
+{
+    double distance;
+    double value;
+    double angle;
+
+    distance = calculateDistance(
+        battleship.x,
+        battleship.y,
+        escort.x,
+        escort.y
+    );
+
+    value =
+        (distance * GRAVITY) /
+        (battleship.maxVelocity *
+         battleship.maxVelocity);
+
+    if (value < 0.0 || value > 1.0) {
+        return -1.0;
+    }
+
+    angle =
+        0.5 *
+        asin(value) *
+        180.0 / M_PI;
+
+    return angle;
+}
+
+
+int battleshipCanHitJammed(
+    Battleship battleship,
+    EscortShip escort,
+    double minimumAngle
+)
+{
+    double firingAngle;
+
+    firingAngle =
+        calculateBattleshipFiringAngle(
+            battleship,
+            escort
+        );
+
+    if (firingAngle < 0.0) {
+        return 0;
+    }
+
+    if (firingAngle < minimumAngle) {
+        return 0;
+    }
+
+    return 1;
 }

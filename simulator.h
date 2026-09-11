@@ -92,5 +92,15 @@ void displayBattlePath(
     double path[][2],
     int numberOfPoints
 );
+double calculateBattleshipFiringAngle(
+    Battleship battleship,
+    EscortShip escort
+);
+
+int battleshipCanHitJammed(
+    Battleship battleship,
+    EscortShip escort,
+    double minimumAngle
+);
 
 #endif

@@ -350,3 +350,171 @@ void savePart1BStep(
 
     fclose(file);
 }
+void savePart1BSimulation2Step(
+    int step,
+    Battleship battleship,
+    EscortShip escorts[],
+    int numberOfEscorts,
+    int battleshipSunk,
+    int sinkerID,
+    int destroyedThisStep,
+    int gunJammed,
+    double minimumAngle
+)
+{
+    FILE *file;
+    char filename[100];
+    int i;
+
+    snprintf(
+        filename,
+        sizeof(filename),
+        "output/part1b_sim2_step_%02d.txt",
+        step
+    );
+
+    file = fopen(filename, "w");
+
+    if (file == NULL) {
+        printf("Error creating Simulation 2 output file.\n");
+        return;
+    }
+
+    fprintf(file, "PART 1-B - SIMULATION 2\n");
+    
+    fprintf(file, "\nIteration: %d\n", step);
+
+    fprintf(
+        file,
+        "Battleship position: (%.2f, %.2f)\n",
+        battleship.x,
+        battleship.y
+    );
+
+    if (gunJammed) {
+        fprintf(file, "Gun status: JAMMED\n");
+        fprintf(
+            file,
+            "Allowed angle range: %.2f - 90.00 degrees\n",
+            minimumAngle
+        );
+    }
+    else {
+        fprintf(file, "Gun status: NORMAL\n");
+        fprintf(
+            file,
+            "Allowed angle range: 0.00 - 90.00 degrees\n"
+        );
+    }
+
+    if (battleshipSunk) {
+        fprintf(file, "\nBattleship status: DESTROYED\n");
+
+        fprintf(
+            file,
+            "Destroyed by Escort ID: %d\n",
+            sinkerID
+        );
+    }
+    else {
+        fprintf(file, "\nBattleship status: ALIVE\n");
+
+        fprintf(
+            file,
+            "Escort ships destroyed this iteration: %d\n",
+            destroyedThisStep
+        );
+    }
+
+    fprintf(file, "\nESCORT STATUS\n");
+
+    for (i = 0; i < numberOfEscorts; i++) {
+        fprintf(
+            file,
+            "Escort %d (%s): %s\n",
+            escorts[i].id,
+            escorts[i].notation,
+            escorts[i].alive ?
+                "ALIVE" : "DESTROYED"
+        );
+    }
+
+    fclose(file);
+}
+
+
+void savePart1BComparison(
+    int sim1Sunk,
+    int sim1Destroyed,
+    int sim1Steps,
+    int sim2Sunk,
+    int sim2Destroyed,
+    int sim2Steps,
+    int jamIteration,
+    double minimumAngle
+)
+{
+    FILE *file;
+
+    file = fopen(
+        "output/part1b_comparison.txt",
+        "w"
+    );
+
+    if (file == NULL) {
+        printf("Error creating comparison file.\n");
+        return;
+    }
+
+    fprintf(
+        file,
+        "PART 1-B SIMULATION COMPARISON\n"
+    );
+
+   
+    fprintf(file, "\nSIMULATION 1\n");
+    fprintf(
+        file,
+        "Battleship: %s\n",
+        sim1Sunk ? "DESTROYED" : "ALIVE"
+    );
+    fprintf(
+        file,
+        "Escorts destroyed: %d\n",
+        sim1Destroyed
+    );
+    fprintf(
+        file,
+        "Iterations completed: %d\n",
+        sim1Steps
+    );
+
+    fprintf(file, "\nSIMULATION 2\n");
+    fprintf(
+        file,
+        "Gun jams after iteration: %d\n",
+        jamIteration
+    );
+    fprintf(
+        file,
+        "Minimum angle after jam: %.2f degrees\n",
+        minimumAngle
+    );
+    fprintf(
+        file,
+        "Battleship: %s\n",
+        sim2Sunk ? "DESTROYED" : "ALIVE"
+    );
+    fprintf(
+        file,
+        "Escorts destroyed: %d\n",
+        sim2Destroyed
+    );
+    fprintf(
+        file,
+        "Iterations completed: %d\n",
+        sim2Steps
+    );
+
+    fclose(file);
+}

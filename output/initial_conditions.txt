@@ -7,7 +7,7 @@ BATTLESHIP
 Type: U
 Name: USS Iowa (BB-61)
 Gun: 50-caliber Mark 7 gun
-Position: (100.00, 500.00)
+Position: (500.00, 500.00)
 Maximum velocity: 100.00
 
 ESCORT SHIPS
