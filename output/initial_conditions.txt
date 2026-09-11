@@ -1,0 +1,58 @@
+NAVAL BATTLE SIMULATOR - INITIAL CONDITIONS
+
+Canvas size: 1000.00 x 1000.00
+Random seed: 123
+
+BATTLESHIP
+Type: U
+Name: USS Iowa (BB-61)
+Gun: 50-caliber Mark 7 gun
+Position: (500.00, 500.00)
+Maximum velocity: 100.00
+
+ESCORT SHIPS
+
+Escort ID: 1
+Type: ED
+Name: F-class Escort Ship
+Gun: SK C/32 naval gun
+Position: (361.61, 134.64)
+Impact Power: 0.05
+Angle Range: 11.09 - 61.09
+Velocity Range: 35.44 - 87.59
+
+Escort ID: 2
+Type: EA
+Name: 1936A-class Destroyer
+Gun: SK C/34 naval gun
+Position: (879.56, 630.37)
+Impact Power: 0.08
+Angle Range: 20.56 - 40.56
+Velocity Range: 37.60 - 120.00
+
+Escort ID: 3
+Type: ED
+Name: F-class Escort Ship
+Gun: SK C/32 naval gun
+Position: (486.63, 790.70)
+Impact Power: 0.05
+Angle Range: 29.84 - 79.84
+Velocity Range: 30.44 - 71.19
+
+Escort ID: 4
+Type: EC
+Name: Matsu-class Destroyer
+Gun: Type 89 dual-purpose gun
+Position: (362.38, 383.02)
+Impact Power: 0.07
+Angle Range: 24.36 - 49.36
+Velocity Range: 46.96 - 84.98
+
+Escort ID: 5
+Type: EB
+Name: Gabbiano-class Corvette
+Gun: L/47 dual-purpose gun
+Position: (968.73, 792.66)
+Impact Power: 0.06
+Angle Range: 49.02 - 79.02
+Velocity Range: 24.16 - 66.09

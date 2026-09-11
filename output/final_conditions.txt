@@ -1,0 +1,11 @@
+NAVAL BATTLE SIMULATOR - FINAL CONDITIONS
+
+Battleship status: DESTROYED
+Destroyed by Escort ID: 1
+
+FINAL ESCORT STATUS
+Escort 1 (ED): ALIVE
+Escort 2 (EA): ALIVE
+Escort 3 (ED): ALIVE
+Escort 4 (EC): ALIVE
+Escort 5 (EB): ALIVE
