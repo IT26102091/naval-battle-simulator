@@ -256,3 +256,97 @@ void saveFinalConditions(
 
     fclose(file);
 }
+void savePart1BStep(
+    int step,
+    Battleship battleship,
+    EscortShip escorts[],
+    int numberOfEscorts,
+    int battleshipSunk,
+    int sinkerID,
+    int destroyedThisStep
+)
+{
+    FILE *file;
+    char filename[100];
+    int i;
+
+    snprintf(
+        filename,
+        sizeof(filename),
+        "output/part1b_sim1_step_%02d.txt",
+        step
+    );
+
+    file = fopen(filename, "w");
+
+    if (file == NULL) {
+
+        printf("Error creating Part 1-B output file.\n");
+        return;
+    }
+
+    fprintf(
+        file,
+        "PART 1-B - SIMULATION 1\n"
+    );
+
+    fprintf(
+        file,
+        "\nIteration: %d\n",
+        step
+    );
+
+    fprintf(
+        file,
+        "Battleship position: (%.2f, %.2f)\n",
+        battleship.x,
+        battleship.y
+    );
+
+    if (battleshipSunk) {
+
+        fprintf(
+            file,
+            "\nBattleship status: DESTROYED\n"
+        );
+
+        fprintf(
+            file,
+            "Destroyed by Escort ID: %d\n",
+            sinkerID
+        );
+    }
+    else {
+
+        fprintf(
+            file,
+            "\nBattleship status: ALIVE\n"
+        );
+
+        fprintf(
+            file,
+            "Escort ships destroyed this iteration: %d\n",
+            destroyedThisStep
+        );
+    }
+
+    fprintf(
+        file,
+        "\nESCORT SHIP STATUS\n"
+    );
+
+    for (i = 0; i < numberOfEscorts; i++) {
+
+        fprintf(
+            file,
+            "Escort %d (%s): %s\n",
+            escorts[i].id,
+            escorts[i].notation,
+            escorts[i].alive
+                ? "ALIVE"
+                : "DESTROYED"
+        );
+    }
+
+    fclose(file);
+}

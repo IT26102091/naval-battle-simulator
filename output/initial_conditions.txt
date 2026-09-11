@@ -7,7 +7,7 @@ BATTLESHIP
 Type: U
 Name: USS Iowa (BB-61)
 Gun: 50-caliber Mark 7 gun
-Position: (500.00, 500.00)
+Position: (100.00, 500.00)
 Maximum velocity: 100.00
 
 ESCORT SHIPS
@@ -56,3 +56,48 @@ Position: (968.73, 792.66)
 Impact Power: 0.06
 Angle Range: 49.02 - 79.02
 Velocity Range: 24.16 - 66.09
+
+Escort ID: 6
+Type: EC
+Name: Matsu-class Destroyer
+Gun: Type 89 dual-purpose gun
+Position: (380.55, 201.27)
+Impact Power: 0.07
+Angle Range: 51.90 - 76.90
+Velocity Range: 35.59 - 66.21
+
+Escort ID: 7
+Type: EC
+Name: Matsu-class Destroyer
+Gun: Type 89 dual-purpose gun
+Position: (559.51, 456.80)
+Impact Power: 0.07
+Angle Range: 36.75 - 61.75
+Velocity Range: 33.07 - 78.03
+
+Escort ID: 8
+Type: EA
+Name: 1936A-class Destroyer
+Gun: SK C/34 naval gun
+Position: (870.98, 361.76)
+Impact Power: 0.08
+Angle Range: 61.20 - 81.20
+Velocity Range: 63.96 - 120.00
+
+Escort ID: 9
+Type: EE
+Name: Japanese Kaibokan
+Gun: (4.7 inch) naval gun
+Position: (13.71, 158.97)
+Impact Power: 0.04
+Angle Range: 8.17 - 78.17
+Velocity Range: 49.32 - 83.16
+
+Escort ID: 10
+Type: ED
+Name: F-class Escort Ship
+Gun: SK C/32 naval gun
+Position: (277.23, 456.11)
+Impact Power: 0.05
+Angle Range: 12.12 - 62.12
+Velocity Range: 33.54 - 73.89

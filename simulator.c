@@ -506,3 +506,43 @@ void displayBattlefield(
                escorts[i].maxVelocity);
     }
 }
+void generateBattlePath(
+    double path[][2],
+    int numberOfPoints,
+    double canvasSize
+)
+{
+    int i;
+
+    for (i = 0; i < numberOfPoints; i++) {
+
+        path[i][0] =
+            randomDouble(0, canvasSize);
+
+        path[i][1] =
+            randomDouble(0, canvasSize);
+    }
+}
+
+
+void displayBattlePath(
+    double path[][2],
+    int numberOfPoints
+)
+{
+    int i;
+
+   
+    printf("      BATTLESHIP PATH\n");
+
+    for (i = 0; i < numberOfPoints; i++)
+    {
+
+        printf(
+            "Point %d: (%.2f, %.2f)\n",
+            i + 1,
+            path[i][0],
+            path[i][1]
+        );
+    }
+}

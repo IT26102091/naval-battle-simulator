@@ -82,4 +82,15 @@ void displayBattlefield(
     int numberOfEscorts
 );
 
+void generateBattlePath(
+    double path[][2],
+    int numberOfPoints,
+    double canvasSize
+);
+
+void displayBattlePath(
+    double path[][2],
+    int numberOfPoints
+);
+
 #endif

@@ -36,6 +36,15 @@ void saveFinalConditions
     int hitCount,
     double battleTime
 );
+void savePart1BStep(
+    int step,
+    Battleship battleship,
+    EscortShip escorts[],
+    int numberOfEscorts,
+    int battleshipSunk,
+    int sinkerID,
+    int destroyedThisStep
+);
 
 
 #endif
