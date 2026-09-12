@@ -6,7 +6,6 @@
 
 #include "simulator.h"
 
-
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
@@ -192,10 +191,27 @@ void setupBattleship(
     );
 
 
+    
+    do
+    {
+        printf(
+            "Enter battleship reload interval (seconds): "
+        );
+
+        scanf(
+            "%lf",
+            &battleship->reloadTime
+        );
+
+    }
+    while (
+        battleship->reloadTime <= 0
+    );
+
+
+    battleship->nextFireTime = 0.0;
     battleship->alive = 1;
 }
-
-
 static void setEscortType(
     EscortShip *escort,
     int type,
@@ -204,56 +220,28 @@ static void setEscortType(
 {
     double angleRange;
 
-
     switch (type)
     {
         case 0:
-
-            strcpy(
-                escort->notation,
-                "EA"
-            );
-
-            strcpy(
-                escort->typeName,
-                "1936A-class Destroyer"
-            );
-
-            strcpy(
-                escort->gunName,
-                "SK C/34 naval gun"
-            );
+            strcpy(escort->notation, "EA");
+            strcpy(escort->typeName, "1936A-class Destroyer");
+            strcpy(escort->gunName, "SK C/34 naval gun");
 
             escort->impactPower = 0.08;
-
             angleRange = 20.0;
 
             escort->maxVelocity =
-                1.2 *
-                battleshipMaxVelocity;
+                1.2 * battleshipMaxVelocity;
 
+            escort->reloadTime = 2.0;
             break;
 
-
         case 1:
-
-            strcpy(
-                escort->notation,
-                "EB"
-            );
-
-            strcpy(
-                escort->typeName,
-                "Gabbiano-class Corvette"
-            );
-
-            strcpy(
-                escort->gunName,
-                "L/47 dual-purpose gun"
-            );
+            strcpy(escort->notation, "EB");
+            strcpy(escort->typeName, "Gabbiano-class Corvette");
+            strcpy(escort->gunName, "L/47 dual-purpose gun");
 
             escort->impactPower = 0.06;
-
             angleRange = 30.0;
 
             escort->maxVelocity =
@@ -262,28 +250,15 @@ static void setEscortType(
                     0.95 * battleshipMaxVelocity
                 );
 
+            escort->reloadTime = 3.0;
             break;
 
-
         case 2:
-
-            strcpy(
-                escort->notation,
-                "EC"
-            );
-
-            strcpy(
-                escort->typeName,
-                "Matsu-class Destroyer"
-            );
-
-            strcpy(
-                escort->gunName,
-                "Type 89 dual-purpose gun"
-            );
+            strcpy(escort->notation, "EC");
+            strcpy(escort->typeName, "Matsu-class Destroyer");
+            strcpy(escort->gunName, "Type 89 dual-purpose gun");
 
             escort->impactPower = 0.07;
-
             angleRange = 25.0;
 
             escort->maxVelocity =
@@ -292,28 +267,15 @@ static void setEscortType(
                     0.95 * battleshipMaxVelocity
                 );
 
+            escort->reloadTime = 4.0;
             break;
 
-
         case 3:
-
-            strcpy(
-                escort->notation,
-                "ED"
-            );
-
-            strcpy(
-                escort->typeName,
-                "F-class Escort Ship"
-            );
-
-            strcpy(
-                escort->gunName,
-                "SK C/32 naval gun"
-            );
+            strcpy(escort->notation, "ED");
+            strcpy(escort->typeName, "F-class Escort Ship");
+            strcpy(escort->gunName, "SK C/32 naval gun");
 
             escort->impactPower = 0.05;
-
             angleRange = 50.0;
 
             escort->maxVelocity =
@@ -322,28 +284,15 @@ static void setEscortType(
                     0.95 * battleshipMaxVelocity
                 );
 
+            escort->reloadTime = 5.0;
             break;
 
-
         default:
-
-            strcpy(
-                escort->notation,
-                "EE"
-            );
-
-            strcpy(
-                escort->typeName,
-                "Japanese Kaibokan"
-            );
-
-            strcpy(
-                escort->gunName,
-                "(4.7 inch) naval gun"
-            );
+            strcpy(escort->notation, "EE");
+            strcpy(escort->typeName, "Japanese Kaibokan");
+            strcpy(escort->gunName, "4.7 inch naval gun");
 
             escort->impactPower = 0.04;
-
             angleRange = 70.0;
 
             escort->maxVelocity =
@@ -352,21 +301,15 @@ static void setEscortType(
                     0.95 * battleshipMaxVelocity
                 );
 
+            escort->reloadTime = 6.0;
             break;
     }
 
-
     escort->minAngle =
-        randomDouble(
-            5.0,
-            85.0 - angleRange
-        );
-
+        randomDouble(5.0, 85.0 - angleRange);
 
     escort->maxAngle =
-        escort->minAngle +
-        angleRange;
-
+        escort->minAngle + angleRange;
 
     escort->minVelocity =
         randomDouble(
@@ -374,7 +317,6 @@ static void setEscortType(
             0.60 * escort->maxVelocity
         );
 }
-
 
 void generateEscortShips(
     EscortShip escorts[],
@@ -386,20 +328,11 @@ void generateEscortShips(
     int i;
     int type;
 
-
-    for (
-        i = 0;
-        i < numberOfEscorts;
-        i++
-    )
+    for (i = 0; i < numberOfEscorts; i++)
     {
-        escorts[i].id =
-            i + 1;
+        escorts[i].id = i + 1;
 
-
-        type =
-            rand() % 5;
-
+        type = rand() % 5;
 
         setEscortType(
             &escorts[i],
@@ -407,24 +340,15 @@ void generateEscortShips(
             battleshipMaxVelocity
         );
 
-
         escorts[i].x =
-            randomDouble(
-                0,
-                canvasSize
-            );
-
+            randomDouble(0.0, canvasSize);
 
         escorts[i].y =
-            randomDouble(
-                0,
-                canvasSize
-            );
-
+            randomDouble(0.0, canvasSize);
 
         escorts[i].alive = 1;
 
-        escorts[i].hasFired = 0;
+        escorts[i].nextFireTime = 0.0;
     }
 }
 
@@ -436,12 +360,8 @@ double calculateDistance(
     double y2
 )
 {
-    double dx =
-        x2 - x1;
-
-    double dy =
-        y2 - y1;
-
+    double dx = x2 - x1;
+    double dy = y2 - y1;
 
     return sqrt(
         dx * dx +
@@ -461,7 +381,7 @@ static double maximumAngleFactor(
 
     first =
         sin(
-            2 *
+            2.0 *
             degreesToRadians(
                 minAngle
             )
@@ -470,7 +390,7 @@ static double maximumAngleFactor(
 
     second =
         sin(
-            2 *
+            2.0 *
             degreesToRadians(
                 maxAngle
             )
@@ -486,13 +406,9 @@ static double maximumAngleFactor(
     }
 
 
-    if (first > second)
-    {
-        return first;
-    }
-
-
-    return second;
+    return
+        first > second ?
+        first : second;
 }
 
 
@@ -507,7 +423,7 @@ static double minimumAngleFactor(
 
     first =
         sin(
-            2 *
+            2.0 *
             degreesToRadians(
                 minAngle
             )
@@ -516,20 +432,16 @@ static double minimumAngleFactor(
 
     second =
         sin(
-            2 *
+            2.0 *
             degreesToRadians(
                 maxAngle
             )
         );
 
 
-    if (first < second)
-    {
-        return first;
-    }
-
-
-    return second;
+    return
+        first < second ?
+        first : second;
 }
 
 
@@ -539,6 +451,7 @@ int battleshipCanHit(
 )
 {
     double distance;
+
     double maximumRange;
 
 
@@ -631,8 +544,8 @@ double calculateBattleshipFiringAngle(
 )
 {
     double distance;
+
     double value;
-    double angle;
 
 
     distance =
@@ -664,14 +577,11 @@ double calculateBattleshipFiringAngle(
     }
 
 
-    angle =
+    return
         0.5 *
         asin(value) *
         180.0 /
         M_PI;
-
-
-    return angle;
 }
 
 
@@ -680,6 +590,7 @@ int battleshipCanHitJammed(
     EscortShip escort,
     double minimumAngle
 )
+
 {
     double firingAngle;
 
@@ -691,22 +602,64 @@ int battleshipCanHitJammed(
         );
 
 
-    if (firingAngle < 0.0)
-    {
-        return 0;
-    }
-
-
     if (
-        firingAngle <
-        minimumAngle
+        firingAngle < 0.0
     )
     {
         return 0;
     }
 
 
-    return 1;
+    return
+        firingAngle >= minimumAngle;
+}
+int selectBestTarget(
+    Battleship battleship,
+    EscortShip escorts[],
+    int numberOfEscorts,
+    int gunJammed,
+    double minimumAngle
+)
+{
+    int i;
+    int target = -1;
+    double highestImpact = -1.0;
+
+    for (i = 0; i < numberOfEscorts; i++)
+    {
+        if (!escorts[i].alive)
+        {
+            continue;
+        }
+
+        if (gunJammed)
+        {
+            if (!battleshipCanHitJammed(
+                    battleship,
+                    escorts[i],
+                    minimumAngle))
+            {
+                continue;
+            }
+        }
+        else
+        {
+            if (!battleshipCanHit(
+                    battleship,
+                    escorts[i]))
+            {
+                continue;
+            }
+        }
+
+        if (escorts[i].impactPower > highestImpact)
+        {
+            highestImpact = escorts[i].impactPower;
+            target = i;
+        }
+    }
+
+    return target;
 }
 
 
@@ -748,16 +701,9 @@ void displayBattlePath(
 {
     int i;
 
+    printf("       BATTLESHIP PATH\n");
 
-   
-    printf( "      BATTLESHIP PATH\n" );
-
-
-    for (
-        i = 0;
-        i < numberOfPoints;
-        i++
-    )
+    for (i = 0; i < numberOfPoints; i++)
     {
         printf(
             "Point %d: (%.2f, %.2f)\n",
@@ -767,8 +713,6 @@ void displayBattlePath(
         );
     }
 }
-
-
 void displayBattlefield(
     Battleship battleship,
     EscortShip escorts[],
@@ -778,41 +722,24 @@ void displayBattlefield(
     int i;
 
 
-        printf(   "       BATTLEFIELD DATA\n" );
-
     
 
-    printf(     "\nBattleship\n"  );
+    printf( "       BATTLEFIELD DATA\n" );
+
+    
+    printf( "\nBattleship: %s\n", battleship.name );
 
 
-    printf(
-        "Type: %c\n",
-        battleship.notation
-    );
+    printf( "Position: (%.2f, %.2f)\n", battleship.x, battleship.y );
 
 
-    printf(
-        "Name: %s\n",
-        battleship.name
-    );
+    printf( "Max Velocity: %.2f\n", battleship.maxVelocity );
 
 
-    printf(
-        "Position: (%.2f, %.2f)\n",
-        battleship.x,
-        battleship.y
-    );
+    printf( "Reload Time: %.2f seconds\n", battleship.reloadTime);
 
 
-    printf(
-        "Maximum Velocity: %.2f\n",
-        battleship.maxVelocity
-    );
-
-
-    printf(
-        "\nEscort Ships\n"
-    );
+    printf( "\nEscort Ships\n" );
 
 
     for (
@@ -821,43 +748,15 @@ void displayBattlefield(
         i++
     )
     {
-        printf(
-            "\nEscort %d\n",
-            escorts[i].id
-        );
+        printf( "\nEscort %d (%s)\n", escorts[i].id, escorts[i].notation);
 
 
-        printf(
-            "Type: %s\n",
-            escorts[i].notation
-        );
+        printf( "Position: (%.2f, %.2f)\n", escorts[i].x, escorts[i].y);
 
 
-        printf(
-            "Position: (%.2f, %.2f)\n",
-            escorts[i].x,
-            escorts[i].y
-        );
+        printf( "Impact Power: %.2f%%\n", escorts[i].impactPower * 100.0 );
 
 
-        printf(
-            "Impact Power: %.2f%%\n",
-            escorts[i].impactPower *
-            100.0
-        );
-
-
-        printf(
-            "Angles: %.2f - %.2f\n",
-            escorts[i].minAngle,
-            escorts[i].maxAngle
-        );
-
-
-        printf(
-            "Velocity: %.2f - %.2f\n",
-            escorts[i].minVelocity,
-            escorts[i].maxVelocity
-        );
+        printf( "Reload Time: %.2f seconds\n", escorts[i].reloadTime );
     }
 }

@@ -22,21 +22,22 @@ void saveInitialConditions(
 )
 {
     FILE *file;
+
     int i;
 
 
     file =
         fopen(
-            "output/initial_conditions.txt",
+            "output/part2_initial_conditions.txt",
             "w"
         );
 
 
-    if (file == NULL)
+    if (
+        file == NULL
+    )
     {
-        printf(
-            "Error creating initial conditions file.\n"
-        );
+        printf( "Error creating initial conditions file.\n" );
 
         return;
     }
@@ -44,20 +45,21 @@ void saveInitialConditions(
 
     fprintf(
         file,
-        "NAVAL BATTLE SIMULATOR - INITIAL CONDITIONS\n"
+        "PART 2 - INITIAL CONDITIONS\n"
     );
+
+    
 
     fprintf(
         file,
-        "\nCanvas size: %.2f x %.2f\n",
-        canvasSize,
+        "\nCanvas Size: %.2f\n",
         canvasSize
     );
 
 
     fprintf(
         file,
-        "Random seed: %u\n",
+        "Random Seed: %u\n",
         seed
     );
 
@@ -84,14 +86,7 @@ void saveInitialConditions(
 
     fprintf(
         file,
-        "Gun: %s\n",
-        battleship.gunName
-    );
-
-
-    fprintf(
-        file,
-        "Initial Position: (%.2f, %.2f)\n",
+        "Position: (%.2f, %.2f)\n",
         battleship.x,
         battleship.y
     );
@@ -99,8 +94,15 @@ void saveInitialConditions(
 
     fprintf(
         file,
-        "Maximum Velocity: %.2f\n",
+        "Max Velocity: %.2f\n",
         battleship.maxVelocity
+    );
+
+
+    fprintf(
+        file,
+        "Reload Time: %.2f seconds\n",
+        battleship.reloadTime
     );
 
 
@@ -118,29 +120,9 @@ void saveInitialConditions(
     {
         fprintf(
             file,
-            "\nEscort ID: %d\n",
-            escorts[i].id
-        );
-
-
-        fprintf(
-            file,
-            "Type: %s\n",
+            "\nEscort %d (%s)\n",
+            escorts[i].id,
             escorts[i].notation
-        );
-
-
-        fprintf(
-            file,
-            "Name: %s\n",
-            escorts[i].typeName
-        );
-
-
-        fprintf(
-            file,
-            "Gun: %s\n",
-            escorts[i].gunName
         );
 
 
@@ -155,24 +137,14 @@ void saveInitialConditions(
         fprintf(
             file,
             "Impact Power: %.2f%%\n",
-            escorts[i].impactPower *
-            100.0
+            escorts[i].impactPower * 100.0
         );
 
 
         fprintf(
             file,
-            "Angle Range: %.2f - %.2f\n",
-            escorts[i].minAngle,
-            escorts[i].maxAngle
-        );
-
-
-        fprintf(
-            file,
-            "Velocity Range: %.2f - %.2f\n",
-            escorts[i].minVelocity,
-            escorts[i].maxVelocity
+            "Reload Time: %.2f seconds\n",
+            escorts[i].reloadTime
         );
     }
 
@@ -181,9 +153,10 @@ void saveInitialConditions(
 }
 
 
-void savePart1CStep(
+void savePart2Step(
     int simulationNumber,
     int step,
+    double currentTime,
     Battleship battleship,
     EscortShip escorts[],
     int numberOfEscorts,
@@ -203,7 +176,7 @@ void savePart1CStep(
     snprintf(
         filename,
         sizeof(filename),
-        "output/part1c_sim%d_step_%02d.txt",
+        "output/part2_sim%d_step_%02d.txt",
         simulationNumber,
         step
     );
@@ -216,10 +189,12 @@ void savePart1CStep(
         );
 
 
-    if (file == NULL)
+    if (
+        file == NULL
+    )
     {
         printf(
-            "Error creating Part 1-C step file.\n"
+            "Error creating Part 2 output file.\n"
         );
 
         return;
@@ -228,9 +203,10 @@ void savePart1CStep(
 
     fprintf(
         file,
-        "PART 1-C - SIMULATION %d\n",
+        "PART 2 - SIMULATION %d\n",
         simulationNumber
     );
+
 
     
     fprintf(
@@ -242,38 +218,40 @@ void savePart1CStep(
 
     fprintf(
         file,
-        "Battleship position: (%.2f, %.2f)\n",
+        "Simulation Time: %.2f seconds\n",
+        currentTime
+    );
+
+
+    fprintf(
+        file,
+        "Battleship Position: (%.2f, %.2f)\n",
         battleship.x,
         battleship.y
     );
 
 
-    if (simulationNumber == 2)
+    if (
+        simulationNumber == 2
+    )
     {
-        if (gunJammed)
+        fprintf(
+            file,
+            "Gun Status: %s\n",
+            gunJammed ?
+                "JAMMED" :
+                "NORMAL"
+        );
+
+
+        if (
+            gunJammed
+        )
         {
             fprintf(
                 file,
-                "Gun status: JAMMED\n"
-            );
-
-            fprintf(
-                file,
-                "Allowed angle range: %.2f - 90.00 degrees\n",
+                "Allowed Angle: %.2f - 90.00 degrees\n",
                 minimumAngle
-            );
-        }
-
-        else
-        {
-            fprintf(
-                file,
-                "Gun status: NORMAL\n"
-            );
-
-            fprintf(
-                file,
-                "Allowed angle range: 0.00 - 90.00 degrees\n"
             );
         }
     }
@@ -281,7 +259,7 @@ void savePart1CStep(
 
     fprintf(
         file,
-        "\nBattleship status: %s\n",
+        "Battleship Status: %s\n",
         battleshipSunk ?
             "DESTROYED" :
             "ALIVE"
@@ -290,9 +268,8 @@ void savePart1CStep(
 
     fprintf(
         file,
-        "Cumulative damage: %.2f%%\n",
-        cumulativeDamage *
-        100.0
+        "Cumulative Damage: %.2f%%\n",
+        cumulativeDamage * 100.0
     );
 
 
@@ -310,7 +287,9 @@ void savePart1CStep(
     {
         fprintf(
             file,
-            "Escort %d (%s): %s | Fired: %s\n",
+            "Escort %d (%s): %s | "
+            "Next Fire: %.2f sec\n",
+
             escorts[i].id,
             escorts[i].notation,
 
@@ -318,9 +297,7 @@ void savePart1CStep(
                 "ALIVE" :
                 "DESTROYED",
 
-            escorts[i].hasFired ?
-                "YES" :
-                "NO"
+            escorts[i].nextFireTime
         );
     }
 
@@ -329,7 +306,87 @@ void savePart1CStep(
 }
 
 
-void savePart1CComparison(
+void saveAttackOrder(
+    int simulationNumber,
+    int attackOrder[],
+    double attackTimes[],
+    int attackCount
+)
+{
+    FILE *file;
+
+    char filename[100];
+
+    int i;
+
+
+    snprintf(
+        filename,
+        sizeof(filename),
+        "output/part2_sim%d_attack_order.txt",
+        simulationNumber
+    );
+
+
+    file =
+        fopen(
+            filename,
+            "w"
+        );
+
+
+    if (
+        file == NULL
+    )
+    {
+        printf(
+            "Error creating attack order file.\n"
+        );
+
+        return;
+    }
+
+
+    fprintf(
+        file,
+        "BATTLESHIP ATTACK ORDER\n"
+    );
+
+    
+
+
+    if (
+        attackCount == 0
+    )
+    {
+        fprintf(
+            file,
+            "Battleship did not destroy any escorts.\n"
+        );
+    }
+
+
+    for (
+        i = 0;
+        i < attackCount;
+        i++
+    )
+    {
+        fprintf(
+            file,
+            "%d. Escort %d at %.2f seconds\n",
+            i + 1,
+            attackOrder[i],
+            attackTimes[i]
+        );
+    }
+
+
+    fclose(file);
+}
+
+
+void savePart2Comparison(
     int sim1Sunk,
     double sim1Damage,
     int sim1Destroyed,
@@ -349,15 +406,17 @@ void savePart1CComparison(
 
     file =
         fopen(
-            "output/part1c_comparison.txt",
+            "output/part2_comparison.txt",
             "w"
         );
 
 
-    if (file == NULL)
+    if (
+        file == NULL
+    )
     {
         printf(
-            "Error creating Part 1-C comparison file.\n"
+            "Error creating Part 2 comparison file.\n"
         );
 
         return;
@@ -366,10 +425,11 @@ void savePart1CComparison(
 
     fprintf(
         file,
-        "PART 1-C SIMULATION COMPARISON\n"
+        "PART 2 SIMULATION COMPARISON\n"
     );
 
     
+
     fprintf(
         file,
         "\nSIMULATION 1\n"
@@ -387,22 +447,21 @@ void savePart1CComparison(
 
     fprintf(
         file,
-        "Cumulative damage: %.2f%%\n",
-        sim1Damage *
-        100.0
+        "Damage: %.2f%%\n",
+        sim1Damage * 100.0
     );
 
 
     fprintf(
         file,
-        "Escorts destroyed: %d\n",
+        "Escorts Destroyed: %d\n",
         sim1Destroyed
     );
 
 
     fprintf(
         file,
-        "Iterations completed: %d\n",
+        "Iterations: %d\n",
         sim1Steps
     );
 
@@ -422,7 +481,7 @@ void savePart1CComparison(
 
     fprintf(
         file,
-        "Minimum angle after jam: %.2f degrees\n",
+        "Jammed minimum angle: %.2f degrees\n",
         minimumAngle
     );
 
@@ -438,22 +497,21 @@ void savePart1CComparison(
 
     fprintf(
         file,
-        "Cumulative damage: %.2f%%\n",
-        sim2Damage *
-        100.0
+        "Damage: %.2f%%\n",
+        sim2Damage * 100.0
     );
 
 
     fprintf(
         file,
-        "Escorts destroyed: %d\n",
+        "Escorts Destroyed: %d\n",
         sim2Destroyed
     );
 
 
     fprintf(
         file,
-        "Iterations completed: %d\n",
+        "Iterations: %d\n",
         sim2Steps
     );
 

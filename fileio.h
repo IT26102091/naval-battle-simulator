@@ -3,7 +3,9 @@
 
 #include "simulator.h"
 
+
 void ensureOutputDirectory(void);
+
 
 void saveInitialConditions(
     Battleship battleship,
@@ -13,9 +15,11 @@ void saveInitialConditions(
     unsigned int seed
 );
 
-void savePart1CStep(
+
+void savePart2Step(
     int simulationNumber,
     int step,
+    double currentTime,
     Battleship battleship,
     EscortShip escorts[],
     int numberOfEscorts,
@@ -25,7 +29,16 @@ void savePart1CStep(
     double minimumAngle
 );
 
-void savePart1CComparison(
+
+void saveAttackOrder(
+    int simulationNumber,
+    int attackOrder[],
+    double attackTimes[],
+    int attackCount
+);
+
+
+void savePart2Comparison(
     int sim1Sunk,
     double sim1Damage,
     int sim1Destroyed,

@@ -15,6 +15,9 @@ typedef struct
 
     double maxVelocity;
 
+    double reloadTime;
+    double nextFireTime;
+
     int alive;
 
 } Battleship;
@@ -39,8 +42,10 @@ typedef struct
     double x;
     double y;
 
+    double reloadTime;
+    double nextFireTime;
+
     int alive;
-    int hasFired;
 
 } EscortShip;
 
@@ -50,13 +55,13 @@ void setupBattleship(
     double canvasSize
 );
 
+
 void generateEscortShips(
     EscortShip escorts[],
     int numberOfEscorts,
     double canvasSize,
     double battleshipMaxVelocity
 );
-
 
 double calculateDistance(
     double x1,
@@ -65,10 +70,12 @@ double calculateDistance(
     double y2
 );
 
+
 int battleshipCanHit(
     Battleship battleship,
     EscortShip escort
 );
+
 
 int escortCanHitBattleship(
     EscortShip escort,
@@ -81,18 +88,29 @@ double calculateBattleshipFiringAngle(
     EscortShip escort
 );
 
-    int battleshipCanHitJammed(
+
+int battleshipCanHitJammed(
     Battleship battleship,
     EscortShip escort,
     double minimumAngle
 );
 
 
-    void generateBattlePath(
+int selectBestTarget(
+    Battleship battleship,
+    EscortShip escorts[],
+    int numberOfEscorts,
+    int gunJammed,
+    double minimumAngle
+);
+
+
+void generateBattlePath(
     double path[][2],
     int numberOfPoints,
     double canvasSize
 );
+
 
 void displayBattlePath(
     double path[][2],

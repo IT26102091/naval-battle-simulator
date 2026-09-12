@@ -1,0 +1,38 @@
+PART 2 - INITIAL CONDITIONS
+
+Canvas Size: 1000.00
+Random Seed: 123
+
+BATTLESHIP
+Type: U
+Name: USS Iowa (BB-61)
+Position: (500.00, 500.00)
+Max Velocity: 100.00
+Reload Time: 2.00 seconds
+
+ESCORT SHIPS
+
+Escort 1 (ED)
+Position: (361.61, 134.64)
+Impact Power: 5.00%
+Reload Time: 5.00 seconds
+
+Escort 2 (EA)
+Position: (879.56, 630.37)
+Impact Power: 8.00%
+Reload Time: 2.00 seconds
+
+Escort 3 (ED)
+Position: (486.63, 790.70)
+Impact Power: 5.00%
+Reload Time: 5.00 seconds
+
+Escort 4 (EC)
+Position: (362.38, 383.02)
+Impact Power: 7.00%
+Reload Time: 4.00 seconds
+
+Escort 5 (EB)
+Position: (968.73, 792.66)
+Impact Power: 6.00%
+Reload Time: 3.00 seconds

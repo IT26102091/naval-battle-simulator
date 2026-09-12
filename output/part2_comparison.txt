@@ -1,0 +1,15 @@
+PART 2 SIMULATION COMPARISON
+
+SIMULATION 1
+Battleship: ALIVE
+Damage: 23.00%
+Escorts Destroyed: 3
+Iterations: 5
+
+SIMULATION 2
+Gun jams after iteration: 3
+Jammed minimum angle: 20.00 degrees
+Battleship: ALIVE
+Damage: 23.00%
+Escorts Destroyed: 2
+Iterations: 5
