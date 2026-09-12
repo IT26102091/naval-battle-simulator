@@ -4,63 +4,97 @@
 #include "simulator.h"
 #include "fileio.h"
 
+
 #define MAX_PATH_POINTS 50
 
 
 int main(void)
 {
     Battleship originalBattleship;
+
     Battleship battleship1;
     Battleship battleship2;
 
+
     EscortShip originalEscorts[MAX_ESCORTS];
+
     EscortShip escorts1[MAX_ESCORTS];
     EscortShip escorts2[MAX_ESCORTS];
 
+
     double path[MAX_PATH_POINTS][2];
 
+
     double canvasSize;
+
     double jamMinimumAngle;
+
+
+    double sim1Damage = 0.0;
+    double sim2Damage = 0.0;
+
 
     unsigned int seed;
 
+
     int numberOfEscorts;
     int numberOfPoints;
+
     int jamIteration;
+
 
     int i;
     int j;
 
+
     int sim1Sunk = 0;
     int sim2Sunk = 0;
 
-    int sim1Sinker = -1;
-    int sim2Sinker = -1;
 
     int sim1Destroyed = 0;
     int sim2Destroyed = 0;
 
+
     int sim1Steps = 0;
     int sim2Steps = 0;
 
-    printf(" ADVANCED NAVAL BATTLE SIMULATOR\n");
-    printf("          PART 1-B\n");
     
 
-    do {
-        printf("\nEnter battlefield size D: ");
-        scanf("%lf", &canvasSize);
+    printf( " ADVANCED NAVAL BATTLE SIMULATOR\n"  );
+
+    printf( "            PART 1-C\n"    );
+
+    
+    do
+    {
+        printf(
+            "\nEnter battlefield size D: "
+        );
+
+        scanf(
+            "%lf",
+            &canvasSize
+        );
+
     }
-    while (canvasSize <= 0);
+    while (
+        canvasSize <= 0
+    );
 
 
-    do {
+    
+    do
+    {
         printf(
             "Enter number of escort ships (1-%d): ",
             MAX_ESCORTS
         );
 
-        scanf("%d", &numberOfEscorts);
+        scanf(
+            "%d",
+            &numberOfEscorts
+        );
+
     }
     while (
         numberOfEscorts < 1 ||
@@ -69,13 +103,18 @@ int main(void)
 
 
     
-    do {
+    do
+    {
         printf(
             "Enter number of path points k (2-%d): ",
             MAX_PATH_POINTS
         );
 
-        scanf("%d", &numberOfPoints);
+        scanf(
+            "%d",
+            &numberOfPoints
+        );
+
     }
     while (
         numberOfPoints < 2 ||
@@ -83,13 +122,19 @@ int main(void)
     );
 
 
-    do {
+    
+    do
+    {
         printf(
             "Enter gun jam iteration t (1-%d): ",
             numberOfPoints - 1
         );
 
-        scanf("%d", &jamIteration);
+        scanf(
+            "%d",
+            &jamIteration
+        );
+
     }
     while (
         jamIteration < 1 ||
@@ -97,12 +142,18 @@ int main(void)
     );
 
 
-    do {
+    
+    do
+    {
         printf(
             "Enter minimum angle after gun jam (0-30): "
         );
 
-        scanf("%lf", &jamMinimumAngle);
+        scanf(
+            "%lf",
+            &jamMinimumAngle
+        );
+
     }
     while (
         jamMinimumAngle <= 0.0 ||
@@ -110,13 +161,20 @@ int main(void)
     );
 
 
-    printf("Enter random seed: ");
-    scanf("%u", &seed);
+        printf(
+        "Enter random seed: "
+    );
+
+    scanf(
+        "%u",
+        &seed
+    );
+
 
     srand(seed);
 
 
-   
+    
     setupBattleship(
         &originalBattleship,
         canvasSize
@@ -164,86 +222,177 @@ int main(void)
 
 
     
-    battleship1 = originalBattleship;
-    battleship2 = originalBattleship;
+    battleship1 =
+        originalBattleship;
 
 
-    for (i = 0; i < numberOfEscorts; i++) {
-        escorts1[i] = originalEscorts[i];
-        escorts2[i] = originalEscorts[i];
+    battleship2 =
+        originalBattleship;
+
+
+    for (
+        i = 0;
+        i < numberOfEscorts;
+        i++
+    )
+    {
+        escorts1[i] =
+            originalEscorts[i];
+
+
+        escorts2[i] =
+            originalEscorts[i];
     }
 
 
-        printf(" PART 1-B - SIMULATION 1\n");
-   
-    for (i = 0; i < numberOfPoints; i++)
+        
+    printf( " PART 1-C - SIMULATION 1\n"  );
+
+    
+
+    for (
+        i = 0;
+        i < numberOfPoints;
+        i++
+    )
     {
+        sim1Steps =
+            i + 1;
 
-        int destroyedThisStep = 0;
 
-        sim1Steps = i + 1;
+        battleship1.x =
+            path[i][0];
 
-        battleship1.x = path[i][0];
-        battleship1.y = path[i][1];
+
+        battleship1.y =
+            path[i][1];
 
 
         printf(
-            "\nIteration %d - Position (%.2f, %.2f)\n",
-            i + 1,
+            "\nIteration %d\n",
+            i + 1
+        );
+
+
+        printf(
+            "Battleship position: (%.2f, %.2f)\n",
             battleship1.x,
             battleship1.y
         );
 
 
         
-        for (j = 0; j < numberOfEscorts; j++) {
+        for (
+            j = 0;
+            j < numberOfEscorts;
+            j++
+        )
+        {
+            
 
-            if (!escorts1[j].alive) {
+            if (
+                !escorts1[j].alive
+            )
+            {
                 continue;
             }
+
+
+            if (
+                escorts1[j].hasFired
+            )
+            {
+                continue;
+            }
+
 
             if (
                 escortCanHitBattleship(
                     escorts1[j],
                     battleship1
                 )
-            ) {
-                sim1Sunk = 1;
-                sim1Sinker = escorts1[j].id;
-                battleship1.alive = 0;
+            )
+            {
+                escorts1[j].hasFired = 1;
+
+
+                sim1Damage +=
+                    escorts1[j].impactPower;
+
 
                 printf(
-                    "Battleship destroyed by Escort %d\n",
-                    sim1Sinker
+                    "Escort %d (%s) hit B. "
+                    "Impact = %.2f%%, "
+                    "Total damage = %.2f%%\n",
+
+                    escorts1[j].id,
+                    escorts1[j].notation,
+
+                    escorts1[j].impactPower *
+                    100.0,
+
+                    sim1Damage *
+                    100.0
                 );
 
-                break;
+
+                
+                if (
+                    sim1Damage >= 1.0
+                )
+                {
+                    sim1Sunk = 1;
+
+                    battleship1.alive = 0;
+
+
+                    printf(
+                        "Battleship destroyed "
+                        "by cumulative damage!\n"
+                    );
+
+
+                    break;
+                }
             }
         }
 
 
         
-        if (!sim1Sunk) {
-
-            for (j = 0; j < numberOfEscorts; j++) {
-
-                if (!escorts1[j].alive) {
+        if (
+            !sim1Sunk
+        )
+        {
+            for (
+                j = 0;
+                j < numberOfEscorts;
+                j++
+            )
+            {
+                if (
+                    !escorts1[j].alive
+                )
+                {
                     continue;
                 }
+
 
                 if (
                     battleshipCanHit(
                         battleship1,
                         escorts1[j]
                     )
-                ) {
+                )
+                {
                     escorts1[j].alive = 0;
 
-                    destroyedThisStep++;
                     sim1Destroyed++;
 
+
                     printf(
-                        "Destroyed Escort %d (%s)\n",
+                        "Battleship destroyed "
+                        "Escort %d (%s)\n",
+
                         escorts1[j].id,
                         escorts1[j].notation
                     );
@@ -252,31 +401,36 @@ int main(void)
         }
 
 
-        savePart1BStep(
+        
+        savePart1CStep(
+            1,
             i + 1,
             battleship1,
             escorts1,
             numberOfEscorts,
+            sim1Damage,
             sim1Sunk,
-            sim1Sinker,
-            destroyedThisStep
+            0,
+            0.0
         );
 
 
-        if (sim1Sunk) {
+        
+        if (
+            sim1Sunk
+        )
+        {
             break;
         }
     }
 
 
-   
     
-    printf(" PART 1-B - SIMULATION 2\n");
+    printf( " PART 1-C - SIMULATION 2\n"   );
+
     
-    printf(
-        "Gun will jam after iteration %d.\n",
-        jamIteration
-    );
+    printf(   "Gun jams after iteration %d\n", jamIteration   );
+
 
     printf(
         "Minimum angle after jam: %.2f degrees\n",
@@ -284,82 +438,166 @@ int main(void)
     );
 
 
-    for (i = 0; i < numberOfPoints; i++) {
-
-        int destroyedThisStep = 0;
+    for (
+        i = 0;
+        i < numberOfPoints;
+        i++
+    )
+    {
         int gunJammed;
 
-        sim2Steps = i + 1;
 
-        battleship2.x = path[i][0];
-        battleship2.y = path[i][1];
+        sim2Steps =
+            i + 1;
 
 
-        
-        gunJammed =
-            ((i + 1) > jamIteration);
+        battleship2.x =
+            path[i][0];
+
+
+        battleship2.y =
+            path[i][1];
+
+
+                gunJammed =
+            (
+                (i + 1) >
+                jamIteration
+            );
 
 
         printf(
-            "\nIteration %d - Position (%.2f, %.2f)\n",
-            i + 1,
+            "\nIteration %d\n",
+            i + 1
+        );
+
+
+        printf(
+            "Battleship position: (%.2f, %.2f)\n",
             battleship2.x,
             battleship2.y
         );
 
 
-        if (gunJammed) {
+        if (
+            gunJammed
+        )
+        {
             printf(
-                "Gun status: JAMMED (%.2f - 90 degrees)\n",
+                "Gun status: JAMMED "
+                "(%.2f - 90 degrees)\n",
                 jamMinimumAngle
             );
         }
-        else {
-            printf("Gun status: NORMAL\n");
+
+        else
+        {
+            printf(
+                "Gun status: NORMAL\n"
+            );
         }
 
 
         
-        for (j = 0; j < numberOfEscorts; j++) {
-
-            if (!escorts2[j].alive) {
+        for (
+            j = 0;
+            j < numberOfEscorts;
+            j++
+        )
+        {
+            if (
+                !escorts2[j].alive
+            )
+            {
                 continue;
             }
+
+
+            if (
+                escorts2[j].hasFired
+            )
+            {
+                continue;
+            }
+
 
             if (
                 escortCanHitBattleship(
                     escorts2[j],
                     battleship2
                 )
-            ) {
-                sim2Sunk = 1;
-                sim2Sinker = escorts2[j].id;
-                battleship2.alive = 0;
+            )
+            {
+                escorts2[j].hasFired = 1;
+
+
+                sim2Damage +=
+                    escorts2[j].impactPower;
+
 
                 printf(
-                    "Battleship destroyed by Escort %d\n",
-                    sim2Sinker
+                    "Escort %d (%s) hit B. "
+                    "Impact = %.2f%%, "
+                    "Total damage = %.2f%%\n",
+
+                    escorts2[j].id,
+                    escorts2[j].notation,
+
+                    escorts2[j].impactPower *
+                    100.0,
+
+                    sim2Damage *
+                    100.0
                 );
 
-                break;
+
+                if (
+                    sim2Damage >= 1.0
+                )
+                {
+                    sim2Sunk = 1;
+
+                    battleship2.alive = 0;
+
+
+                    printf(
+                        "Battleship destroyed "
+                        "by cumulative damage!\n"
+                    );
+
+
+                    break;
+                }
             }
         }
 
 
         
-        if (!sim2Sunk) {
-
-            for (j = 0; j < numberOfEscorts; j++) {
-
+        if (
+            !sim2Sunk
+        )
+        {
+            for (
+                j = 0;
+                j < numberOfEscorts;
+                j++
+            )
+            {
                 int canHit;
 
-                if (!escorts2[j].alive) {
+
+                if (
+                    !escorts2[j].alive
+                )
+                {
                     continue;
                 }
 
 
-                if (gunJammed) {
-
+                if (
+                    gunJammed
+                )
+                {
                     canHit =
                         battleshipCanHitJammed(
                             battleship2,
@@ -368,8 +606,8 @@ int main(void)
                         );
                 }
 
-                else {
-
+                else
+                {
                     canHit =
                         battleshipCanHit(
                             battleship2,
@@ -378,15 +616,19 @@ int main(void)
                 }
 
 
-                if (canHit) {
-
+                if (
+                    canHit
+                )
+                {
                     escorts2[j].alive = 0;
 
-                    destroyedThisStep++;
                     sim2Destroyed++;
 
+
                     printf(
-                        "Destroyed Escort %d (%s)\n",
+                        "Battleship destroyed "
+                        "Escort %d (%s)\n",
+
                         escorts2[j].id,
                         escorts2[j].notation
                     );
@@ -395,70 +637,101 @@ int main(void)
         }
 
 
-        savePart1BSimulation2Step(
+        savePart1CStep(
+            2,
             i + 1,
             battleship2,
             escorts2,
             numberOfEscorts,
+            sim2Damage,
             sim2Sunk,
-            sim2Sinker,
-            destroyedThisStep,
             gunJammed,
             jamMinimumAngle
         );
 
 
-        if (sim2Sunk) {
+        if (
+            sim2Sunk
+        )
+        {
             break;
         }
     }
 
 
-   
-    printf(" PART 1-B COMPARISON\n");
-   
+    
+    
+    printf(  "       PART 1-C RESULTS\n" );
 
-    printf("\nSimulation 1\n");
+        printf( "\nSimulation 1\n"  );
+
 
     printf(
         "Battleship: %s\n",
-        sim1Sunk ? "DESTROYED" : "ALIVE"
+        sim1Sunk ?
+            "DESTROYED" :
+            "ALIVE"
     );
 
+
     printf(
-        "Escorts destroyed: %d\n",
+        "Cumulative Damage: %.2f%%\n",
+        sim1Damage *
+        100.0
+    );
+
+
+    printf(
+        "Escorts Destroyed: %d\n",
         sim1Destroyed
     );
 
 
-    printf("\nSimulation 2\n");
+    printf(
+        "\nSimulation 2\n"
+    );
+
 
     printf(
         "Battleship: %s\n",
-        sim2Sunk ? "DESTROYED" : "ALIVE"
+        sim2Sunk ?
+            "DESTROYED" :
+            "ALIVE"
     );
 
+
     printf(
-        "Escorts destroyed: %d\n",
+        "Cumulative Damage: %.2f%%\n",
+        sim2Damage *
+        100.0
+    );
+
+
+    printf(
+        "Escorts Destroyed: %d\n",
         sim2Destroyed
     );
 
 
-    savePart1BComparison(
+        savePart1CComparison(
         sim1Sunk,
+        sim1Damage,
         sim1Destroyed,
         sim1Steps,
+
         sim2Sunk,
+        sim2Damage,
         sim2Destroyed,
         sim2Steps,
+
         jamIteration,
         jamMinimumAngle
     );
 
 
     printf(
-        "\nComparison saved to "
-        "output/part1b_comparison.txt\n"
+        "\nPart 1-C results saved "
+        "inside output/ directory.\n"
     );
 
 

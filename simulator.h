@@ -4,19 +4,24 @@
 #define MAX_ESCORTS 100
 #define GRAVITY 9.81
 
-typedef struct {
+typedef struct
+{
     char notation;
     char name[50];
     char gunName[60];
 
     double x;
     double y;
+
     double maxVelocity;
 
     int alive;
+
 } Battleship;
 
-typedef struct {
+
+typedef struct
+{
     int id;
 
     char notation[3];
@@ -35,13 +40,17 @@ typedef struct {
     double y;
 
     int alive;
+    int hasFired;
+
 } EscortShip;
 
 
-void setupBattleship(Battleship *battleship, double canvasSize);
+void setupBattleship(
+    Battleship *battleship,
+    double canvasSize
+);
 
-void generateEscortShips
-(
+void generateEscortShips(
     EscortShip escorts[],
     int numberOfEscorts,
     double canvasSize,
@@ -49,40 +58,37 @@ void generateEscortShips
 );
 
 
-double calculateDistance
-(
+double calculateDistance(
     double x1,
     double y1,
     double x2,
     double y2
 );
 
-int battleshipCanHit
-(
+int battleshipCanHit(
     Battleship battleship,
     EscortShip escort
 );
 
-int escortCanHitBattleship
-(
+int escortCanHitBattleship(
     EscortShip escort,
     Battleship battleship
 );
 
-double calculateBattleshipHitTime
-(
+
+double calculateBattleshipFiringAngle(
     Battleship battleship,
     EscortShip escort
 );
 
-
-void displayBattlefield(
+    int battleshipCanHitJammed(
     Battleship battleship,
-    EscortShip escorts[],
-    int numberOfEscorts
+    EscortShip escort,
+    double minimumAngle
 );
 
-void generateBattlePath(
+
+    void generateBattlePath(
     double path[][2],
     int numberOfPoints,
     double canvasSize
@@ -92,15 +98,12 @@ void displayBattlePath(
     double path[][2],
     int numberOfPoints
 );
-double calculateBattleshipFiringAngle(
-    Battleship battleship,
-    EscortShip escort
-);
 
-int battleshipCanHitJammed(
+
+void displayBattlefield(
     Battleship battleship,
-    EscortShip escort,
-    double minimumAngle
+    EscortShip escorts[],
+    int numberOfEscorts
 );
 
 #endif

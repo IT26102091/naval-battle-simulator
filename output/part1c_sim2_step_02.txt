@@ -1,0 +1,31 @@
+PART 1-C - SIMULATION 2
+
+Iteration: 2
+Battleship position: (794.18, 672.72)
+Gun status: NORMAL
+Allowed angle range: 0.00 - 90.00 degrees
+
+Battleship status: ALIVE
+Cumulative damage: 63.00%
+
+ESCORT STATUS
+Escort 1 (ED): DESTROYED | Fired: NO
+Escort 2 (EA): DESTROYED | Fired: YES
+Escort 3 (ED): DESTROYED | Fired: YES
+Escort 4 (EC): DESTROYED | Fired: YES
+Escort 5 (EB): DESTROYED | Fired: NO
+Escort 6 (EC): DESTROYED | Fired: NO
+Escort 7 (EC): DESTROYED | Fired: NO
+Escort 8 (EA): DESTROYED | Fired: YES
+Escort 9 (EE): DESTROYED | Fired: NO
+Escort 10 (ED): DESTROYED | Fired: YES
+Escort 11 (EE): DESTROYED | Fired: NO
+Escort 12 (EE): DESTROYED | Fired: NO
+Escort 13 (EC): DESTROYED | Fired: NO
+Escort 14 (EA): DESTROYED | Fired: YES
+Escort 15 (EB): DESTROYED | Fired: NO
+Escort 16 (EA): DESTROYED | Fired: YES
+Escort 17 (EE): DESTROYED | Fired: YES
+Escort 18 (ED): DESTROYED | Fired: YES
+Escort 19 (ED): DESTROYED | Fired: YES
+Escort 20 (ED): DESTROYED | Fired: NO
