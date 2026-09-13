@@ -3,7 +3,7 @@ PART 2 SIMULATION COMPARISON
 SIMULATION 1
 Battleship: ALIVE
 Damage: 23.00%
-Escorts Destroyed: 2
+Escorts Destroyed: 3
 Iterations: 3
 
 SIMULATION 2
@@ -11,5 +11,5 @@ Gun jams after iteration: 1
 Jammed minimum angle: 20.00 degrees
 Battleship: ALIVE
 Damage: 23.00%
-Escorts Destroyed: 2
+Escorts Destroyed: 3
 Iterations: 3

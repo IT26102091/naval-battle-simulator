@@ -8,7 +8,7 @@ Type: U
 Name: USS Iowa (BB-61)
 Position: (500.00, 500.00)
 Max Velocity: 100.00
-Reload Time: 2.00 seconds
+Reload Time: 1.00 seconds
 
 ESCORT SHIPS
 

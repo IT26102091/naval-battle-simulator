@@ -283,8 +283,46 @@ static void runAdvancedSimulation(
     );
 }
 
+void showMainMenu(void)
+{
+    printf("     NAVAL BATTLE SIMULATOR\n");
+    printf("1. Start Simulation\n");
+    printf("2. View Instructions\n");
+    printf("3. View Statistics\n");
+    printf("4. Exit\n");
+    printf("Enter your choice: ");
+}
 
-int main(void)
+void showInstructions(void)
+{
+    printf("\nB = Battleship\n");
+    printf("E = Escort ship\n");
+    printf(". = Empty area\n");
+}
+
+void showStatistics(void)
+{
+    FILE *file;
+    char line[200];
+
+    file = fopen("output/part2_comparison.txt", "r");
+
+    if (file == NULL)
+    {
+        printf("\nNo statistics found.\n");
+        return;
+    }
+
+    while (fgets(line, sizeof(line), file) != NULL)
+    {
+        printf("%s", line);
+    }
+
+    fclose(file);
+}
+
+
+int runSimulation(void)
 {
     Battleship originalBattleship;
     Battleship battleship1;
@@ -655,6 +693,41 @@ int main(void)
         "\nPart 2 results saved in output/.\n"
     );
 
+
+    return 0;
+}
+int main(void)
+{
+    int choice;
+
+    do
+    {
+        showMainMenu();
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                runSimulation();
+                break;
+
+            case 2:
+                showInstructions();
+                break;
+
+            case 3:
+                showStatistics();
+                break;
+
+            case 4:
+                printf("\nExiting simulator...\n");
+                break;
+
+            default:
+                printf("\nInvalid choice.\n");
+        }
+
+    } while (choice != 4);
 
     return 0;
 }
