@@ -3,7 +3,8 @@ PART 2 - SIMULATION 2
 Iteration: 3
 Simulation Time: 2.00 seconds
 Battleship Position: (380.55, 201.27)
-Gun Status: NORMAL
+Gun Status: JAMMED
+Allowed Angle: 20.00 - 90.00 degrees
 Battleship Status: ALIVE
 Cumulative Damage: 23.00%
 
@@ -11,5 +12,5 @@ ESCORT STATUS
 Escort 1 (ED): ALIVE | Next Fire: 5.00 sec
 Escort 2 (EA): DESTROYED | Next Fire: 0.00 sec
 Escort 3 (ED): ALIVE | Next Fire: 6.00 sec
-Escort 4 (EC): DESTROYED | Next Fire: 4.00 sec
-Escort 5 (EB): ALIVE | Next Fire: 4.00 sec
+Escort 4 (EC): ALIVE | Next Fire: 4.00 sec
+Escort 5 (EB): DESTROYED | Next Fire: 4.00 sec

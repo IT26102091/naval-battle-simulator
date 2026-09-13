@@ -124,4 +124,11 @@ void displayBattlefield(
     int numberOfEscorts
 );
 
+void displayVisualBattlefield(
+    Battleship battleship,
+    EscortShip escorts[],
+    int numberOfEscorts,
+    double canvasSize
+);
+
 #endif

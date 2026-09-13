@@ -487,6 +487,13 @@ int main(void)
         numberOfEscorts
     );
 
+    displayVisualBattlefield(
+    originalBattleship,
+    escorts,
+    numberOfEscorts,
+    canvasSize
+);
+
 
     displayBattlePath(
         path,

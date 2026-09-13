@@ -3,7 +3,8 @@ PART 2 - SIMULATION 2
 Iteration: 2
 Simulation Time: 1.00 seconds
 Battleship Position: (852.71, 791.82)
-Gun Status: NORMAL
+Gun Status: JAMMED
+Allowed Angle: 20.00 - 90.00 degrees
 Battleship Status: ALIVE
 Cumulative Damage: 23.00%
 

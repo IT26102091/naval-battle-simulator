@@ -760,3 +760,74 @@ void displayBattlefield(
         printf( "Reload Time: %.2f seconds\n", escorts[i].reloadTime );
     }
 }
+
+void displayVisualBattlefield(
+    Battleship battleship,
+    EscortShip escorts[],
+    int numberOfEscorts,
+    double canvasSize
+)
+{
+    char grid[15][30];
+    int row, col, i;
+    int bx, by;
+    int ex, ey;
+
+
+        for (row = 0; row < 15; row++)
+    {
+        for (col = 0; col < 30; col++)
+        {
+            grid[row][col] = '.';
+        }
+    }
+
+    bx = (int)((battleship.x / canvasSize) * 29);
+    by = (int)((battleship.y / canvasSize) * 14);
+
+    if (bx < 0) bx = 0;
+    if (bx > 29) bx = 29;
+    if (by < 0) by = 0;
+    if (by > 14) by = 14;
+
+    if (battleship.alive)
+    {
+        grid[14 - by][bx] = 'B';
+    }
+
+    for (i = 0; i < numberOfEscorts; i++)
+    {
+        if (!escorts[i].alive)
+        {
+            continue;
+        }
+
+        ex = (int)((escorts[i].x / canvasSize) * 29);
+        ey = (int)((escorts[i].y / canvasSize) * 14);
+
+        if (ex < 0) ex = 0;
+        if (ex > 29) ex = 29;
+        if (ey < 0) ey = 0;
+        if (ey > 14) ey = 14;
+
+        grid[14 - ey][ex] = 'E';
+    }
+
+    printf("\n");
+    printf("        NAVAL BATTLEFIELD\n");
+
+    for (row = 0; row < 15; row++)
+    {
+        printf("|");
+
+        for (col = 0; col < 30; col++)
+        {
+            printf("%c", grid[row][col]);
+        }
+
+        printf("|\n");
+    }
+
+    printf("B = Battleship   E = Escort\n");
+    printf(". = Empty Area\n\n");
+}
